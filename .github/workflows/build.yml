@@ -81,7 +81,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "actions@github.com"
           git add adblock.txt hosts.txt CHANGELOG.txt
-          git diff --cached --quiet || git commit -m "Auto build blocklists (sorted) + changelog"
+          git diff --cached --quiet || git commit -m "Auto build blocklists"
           git push
 
       # Step 5: Tag release
