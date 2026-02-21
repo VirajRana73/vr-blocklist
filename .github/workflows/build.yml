@@ -18,38 +18,41 @@ jobs:
       # Step 0: Checkout repo
       - uses: actions/checkout@v4
 
-      # Step 1: Clean & sort domains
-      - name: Prepare sorted domains
-        run: |
-          grep -v '^#' domains.txt | grep -v '^$' | sort -u > sorted.txt
-          mv sorted.txt domains.txt
-
-      # Step 2: Generate blocklists
+      # Step 1: Generate AdBlock + Hosts
       - name: Generate AdBlock + Hosts
         run: |
           DATE=$(date -u +"%d %b %Y")
           VERSION=$(date -u +"%Y.%m.%d.%H%M")
           COUNT=$(wc -l < domains.txt)
 
-          # AdBlock format
-          echo "[Adblock Plus 2.0]" > adblock.txt
-          echo "! Title: VR Blocklist" >> adblock.txt
-          echo "! Description: My Personal Blocklist" >> adblock.txt
-          echo "! Homepage: https://github.com/VirajRana73/vr-blocklist" >> adblock.txt
-          echo "! Version: $VERSION" >> adblock.txt
-          echo "! Last modified: $DATE" >> adblock.txt
-          echo "! Syntax: AdBlock" >> adblock.txt
-          echo "! Entries: $COUNT" >> adblock.txt
-          echo "" >> adblock.txt
-          sed 's/^/||/' domains.txt | sed 's/$/^/' >> adblock.txt
+          # Generate raw AdBlock and Hosts
+          sed 's/^/||/' domains.txt | sed 's/$/^/' > raw_adblock.txt
+          sed 's/^/0.0.0.0 /' domains.txt > raw_hosts.txt
 
-          # Hosts format
-          sed 's/^/0.0.0.0 /' domains.txt > hosts.txt
+          # Sort them alphabetically
+          sort raw_adblock.txt > adblock.txt
+          sort raw_hosts.txt > hosts.txt
 
-      # Step 3: Validate blocklists
+          # Prepend AdBlock headers
+          {
+            echo "[Adblock Plus 2.0]"
+            echo "! Title: VR Blocklist"
+            echo "! Description: My Personal Blocklist"
+            echo "! Homepage: https://github.com/VirajRana73/vr-blocklist"
+            echo "! Version: $VERSION"
+            echo "! Last modified: $DATE"
+            echo "! Syntax: AdBlock"
+            echo "! Entries: $COUNT"
+            echo ""
+            cat adblock.txt
+          } > temp.txt && mv temp.txt adblock.txt
+
+          # Clean up raw files
+          rm raw_adblock.txt raw_hosts.txt
+
+      # Step 2: Validate blocklists
       - name: Validate blocklists
         run: |
-          # AdBlock validation: ignore comments (!) and header ([...])
           INVALID=$(grep -v '^[!\[]' adblock.txt | grep -v '^$' | grep -v '^||.*\^$' || true)
           if [ -n "$INVALID" ]; then
             echo "AdBlock validation failed! Invalid lines:"
@@ -57,7 +60,6 @@ jobs:
             exit 1
           fi
 
-          # Hosts validation: all non-empty lines start with 0.0.0.0
           INVALID_HOSTS=$(grep -v '^$' hosts.txt | grep -v '^0.0.0.0 ' || true)
           if [ -n "$INVALID_HOSTS" ]; then
             echo "Hosts validation failed! Invalid lines:"
@@ -67,28 +69,29 @@ jobs:
 
           echo "Validation passed ✅"
 
-      # Step 4: Generate changelog
+      # Step 3: Generate changelog
       - name: Generate changelog
         run: |
           git fetch origin main
           git diff --name-status origin/main~1 origin/main domains.txt > CHANGELOG.txt || echo "No previous commit for changelog"
 
-      # Step 5: Commit generated files
+      # Step 4: Commit generated files
       - name: Commit generated files
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add adblock.txt hosts.txt domains.txt CHANGELOG.txt
-          git diff --quiet || git commit -m "Auto build blocklists (sorted + changelog)" && git push
+          git add adblock.txt hosts.txt CHANGELOG.txt
+          git diff --cached --quiet || git commit -m "Auto build blocklists (sorted) + changelog"
+          git push
 
-      # Step 6: Tag release
+      # Step 5: Tag release
       - name: Tag release
         run: |
           VERSION=$(date -u +"%Y.%m.%d.%H%M")
           git tag -a "$VERSION" -m "Auto release $VERSION"
           git push origin "$VERSION"
 
-      # Step 7: Deploy to GitHub Pages
+      # Step 6: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
