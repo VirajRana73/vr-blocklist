@@ -23,7 +23,7 @@ jobs:
         run: |
           DATE=$(date -u +"%d %b %Y")
           VERSION=$(date -u +"%Y.%m.%d.%H%M")
-          COUNT=$(wc -l < domains.txt)
+          COUNT=$(grep -v '^#' domains.txt | grep -v '^$' | wc -l)
 
           # Generate raw AdBlock and Hosts
           sed 's/^/||/' domains.txt | sed 's/$/^/' > raw_adblock.txt
