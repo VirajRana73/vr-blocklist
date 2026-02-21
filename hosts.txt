@@ -1,3 +1,6 @@
+0.0.0.0 android-context-data.googleapis.com
+0.0.0.0 api-secure.rikka.app
+0.0.0.0 api-secure.rikka.caoyue.com.cn
 0.0.0.0 auditrecording-pa.googleapis.com
 0.0.0.0 cdn.statically.io
 0.0.0.0 cloud-telephony-noneu.truecaller.com
@@ -14,7 +17,9 @@
 0.0.0.0 graph.facebook.com
 0.0.0.0 graph.whatsapp.com
 0.0.0.0 graph.whatsapp.net
+0.0.0.0 history.google.com
 0.0.0.0 insurance-noneu.truecaller.com
+0.0.0.0 lamssettings-pa.googleapis.com
 0.0.0.0 locationhistory-pa.googleapis.com
 0.0.0.0 locationhistoryplacedetails-pa.googleapis.com
 0.0.0.0 logs.juspay.in
@@ -27,4 +32,5 @@
 0.0.0.0 ulp1p-pa.googleapis.com
 0.0.0.0 us-c.viayoo.com
 0.0.0.0 userapps-noneu.truecallerstatic.com
+0.0.0.0 userlocation.googleapis.com
 0.0.0.0 www.apps2sd.info

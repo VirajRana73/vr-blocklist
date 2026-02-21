@@ -1,10 +1,15 @@
 [Adblock Plus 2.0]
 ! Title: VR Blocklist
-! Version: 2026.02.21.0727
+! Description: My Personal Blocklist
+! Homepage: https://github.com/VirajRana73/vr-blocklist
+! Version: 2026.02.21.0830
 ! Last modified: 21 Feb 2026
 ! Syntax: AdBlock
-! Entries: 30
+! Entries: 35
 
+||android-context-data.googleapis.com^
+||api-secure.rikka.app^
+||api-secure.rikka.caoyue.com.cn^
 ||auditrecording-pa.googleapis.com^
 ||cdn.statically.io^
 ||cloud-telephony-noneu.truecaller.com^
@@ -21,7 +26,9 @@
 ||graph.facebook.com^
 ||graph.whatsapp.com^
 ||graph.whatsapp.net^
+||history.google.com^
 ||insurance-noneu.truecaller.com^
+||lamssettings-pa.googleapis.com^
 ||locationhistory-pa.googleapis.com^
 ||locationhistoryplacedetails-pa.googleapis.com^
 ||logs.juspay.in^
@@ -34,4 +41,5 @@
 ||ulp1p-pa.googleapis.com^
 ||us-c.viayoo.com^
 ||userapps-noneu.truecallerstatic.com^
+||userlocation.googleapis.com^
 ||www.apps2sd.info^
