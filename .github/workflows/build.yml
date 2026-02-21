@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 0: Checkout repo
       - uses: actions/checkout@v4
 
       # Step 1: Clean & sort domains
@@ -23,8 +24,8 @@ jobs:
           grep -v '^#' domains.txt | grep -v '^$' | sort -u > sorted.txt
           mv sorted.txt domains.txt
 
-      # Step 2: Generate AdBlock + Hosts
-      - name: Generate blocklists
+      # Step 2: Generate blocklists
+      - name: Generate AdBlock + Hosts
         run: |
           DATE=$(date -u +"%d %b %Y")
           VERSION=$(date -u +"%Y.%m.%d.%H%M")
@@ -34,7 +35,7 @@ jobs:
           echo "[Adblock Plus 2.0]" > adblock.txt
           echo "! Title: VR Blocklist" >> adblock.txt
           echo "! Description: My Personal Blocklist" >> adblock.txt
-          echo "! Homepage: https://github.com/YOURNAME/vr-blocklist" >> adblock.txt
+          echo "! Homepage: https://github.com/VirajRana73/vr-blocklist" >> adblock.txt
           echo "! Version: $VERSION" >> adblock.txt
           echo "! Last modified: $DATE" >> adblock.txt
           echo "! Syntax: AdBlock" >> adblock.txt
@@ -45,17 +46,50 @@ jobs:
           # Hosts format
           sed 's/^/0.0.0.0 /' domains.txt > hosts.txt
 
-      # Step 3: Commit only if changed
+      # Step 3: Validation
+      - name: Validate blocklists
+        run: |
+          # AdBlock validation: all non-comment lines start with || and end with ^
+          if grep -v '^!' adblock.txt | grep -v '^$' | grep -v '^||.*\^$'; then
+            echo "AdBlock validation failed"
+            exit 1
+          fi
+          # Hosts validation: all non-empty lines start with 0.0.0.0
+          if grep -v '^$' hosts.txt | grep -v '^0.0.0.0 '; then
+            echo "Hosts validation failed"
+            exit 1
+          fi
+          echo "Validation passed ✅"
+
+      # Step 4: Generate changelog
+      - name: Generate changelog
+        run: |
+          git fetch origin main
+          git diff --name-status origin/main~1 origin/main domains.txt > CHANGELOG.txt || echo "No previous commit for changelog"
+
+      # Step 5: Commit generated files
       - name: Commit generated files
         run: |
           git config user.name "github-actions"
           git config user.email "actions@github.com"
-          git add adblock.txt hosts.txt domains.txt
-          git diff --quiet || git commit -m "Auto build blocklists (sorted)" && git push
+          git add adblock.txt hosts.txt domains.txt CHANGELOG.txt
+          git diff --quiet || git commit -m "Auto build blocklists (sorted + changelog)" && git push
 
-      # Step 4: Tag release
+      # Step 6: Tag release
       - name: Tag release
         run: |
           VERSION=$(date -u +"%Y.%m.%d.%H%M")
           git tag -a "$VERSION" -m "Auto release $VERSION"
           git push origin "$VERSION"
+
+      # Step 7: Publish to GitHub Pages (cdn hosting)
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./
+          publish_branch: gh-pages
+          force_orphan: true
+          keep_files: false
+          destination_dir: ""  # root of gh-pages branch
+          commit_message: "Deploy VR Blocklist to GitHub Pages"
