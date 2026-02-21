@@ -1,0 +1,52 @@
+name: Build Blocklists
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Prepare clean sorted source
+        run: |
+          # Remove empty lines and comments
+          grep -v '^#' domains.txt | grep -v '^$' > clean.txt
+          
+          # Sort alphabetically and remove duplicates
+          sort -u clean.txt > sorted.txt
+          
+          # Replace original file with sorted version
+          mv sorted.txt domains.txt
+          rm clean.txt
+
+      - name: Generate blocklists
+        run: |
+          DATE=$(date -u +"%d %b %Y")
+          VERSION=$(date -u +"%Y.%m.%d.%H%M")
+          COUNT=$(wc -l < domains.txt)
+
+          # Generate AdBlock format
+          echo "[Adblock Plus 2.0]" > adblock.txt
+          echo "! Title: VR Blocklist" >> adblock.txt
+          echo "! Version: $VERSION" >> adblock.txt
+          echo "! Last modified: $DATE" >> adblock.txt
+          echo "! Syntax: AdBlock" >> adblock.txt
+          echo "! Entries: $COUNT" >> adblock.txt
+          echo "" >> adblock.txt
+          sed 's/^/||/' domains.txt | sed 's/$/^/' >> adblock.txt
+
+          # Generate Hosts format
+          sed 's/^/0.0.0.0 /' domains.txt > hosts.txt
+
+      - name: Commit generated files
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add adblock.txt hosts.txt domains.txt
+          git commit -m "Auto build blocklists (sorted)"
+          git push
