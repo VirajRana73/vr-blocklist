@@ -33,4 +33,3 @@ lamssettings-pa.googleapis.com
 history.google.com
 api-secure.rikka.app
 api-secure.rikka.caoyue.com.cn
-userlocation.googleapis.com
