@@ -1,5 +1,8 @@
 # VR Blocklist
 
+[![Build Status](https://github.com/virajrana73/vr-blocklist/actions/workflows/build.yml/badge.svg)](https://github.com/virajrana73/vr-blocklist/actions/workflows/build.yml)
+[![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue?logo=github)](https://virajrana73.github.io/vr-blocklist/)
+
 My personal blocklist for blocking some unwanted domains.
 Automatically generated and deployed via GitHub Actions. 
 
