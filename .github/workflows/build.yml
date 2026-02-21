@@ -7,8 +7,8 @@ on:
   push:
     branches: [ "main" ]
     paths:
-      - 'domains.txt'       # Only run if domains.txt changes
-  workflow_dispatch:        # Manual trigger
+      - 'domains.txt'
+  workflow_dispatch:
 
 jobs:
   build:
@@ -25,7 +25,7 @@ jobs:
           mv sorted.txt domains.txt
 
       # Step 2: Generate blocklists
-      - name: Generate AdBlock + Hosts
+      - name: Generate blocklists
         run: |
           DATE=$(date -u +"%d %b %Y")
           VERSION=$(date -u +"%Y.%m.%d.%H%M")
@@ -46,26 +46,25 @@ jobs:
           # Hosts format
           sed 's/^/0.0.0.0 /' domains.txt > hosts.txt
 
-      # Step 3: Validation
+      # Step 3: Validate blocklists
       - name: Validate blocklists
-  run: |
-    # AdBlock validation: all non-comment lines start with || and end with ^
-    INVALID=$(grep -v '^!' adblock.txt | grep -v '^$' | grep -v '^||.*\^$' || true)
-    if [ -n "$INVALID" ]; then
-      echo "AdBlock validation failed! Invalid lines:"
-      echo "$INVALID"
-      exit 1
-    fi
+        run: |
+          # AdBlock validation
+          INVALID=$(grep -v '^!' adblock.txt | grep -v '^$' | grep -v '^||.*\^$' || true)
+          if [ -n "$INVALID" ]; then
+            echo "AdBlock validation failed! Invalid lines:"
+            echo "$INVALID"
+            exit 1
+          fi
 
-    # Hosts validation: all non-empty lines start with 0.0.0.0
-    INVALID_HOSTS=$(grep -v '^$' hosts.txt | grep -v '^0.0.0.0 ' || true)
-    if [ -n "$INVALID_HOSTS" ]; then
-      echo "Hosts validation failed! Invalid lines:"
-      echo "$INVALID_HOSTS"
-      exit 1
-    fi
-
-    echo "Validation passed ✅"
+          # Hosts validation
+          INVALID_HOSTS=$(grep -v '^$' hosts.txt | grep -v '^0.0.0.0 ' || true)
+          if [ -n "$INVALID_HOSTS" ]; then
+            echo "Hosts validation failed! Invalid lines:"
+            echo "$INVALID_HOSTS"
+            exit 1
+          fi
+          echo "Validation passed ✅"
 
       # Step 4: Generate changelog
       - name: Generate changelog
@@ -88,7 +87,7 @@ jobs:
           git tag -a "$VERSION" -m "Auto release $VERSION"
           git push origin "$VERSION"
 
-      # Step 7: Publish to GitHub Pages (cdn hosting)
+      # Step 7: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -97,5 +96,4 @@ jobs:
           publish_branch: gh-pages
           force_orphan: true
           keep_files: false
-          destination_dir: ""  # root of gh-pages branch
           commit_message: "Deploy VR Blocklist to GitHub Pages"
