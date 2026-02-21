@@ -2,7 +2,7 @@
 ! Title: VR Blocklist
 ! Description: My Personal Blocklist
 ! Homepage: https://github.com/VirajRana73/vr-blocklist
-! Version: 2026.02.21.0840
+! Version: 2026.02.21.0845
 ! Last modified: 21 Feb 2026
 ! Syntax: AdBlock
 ! Entries: 35
@@ -41,5 +41,4 @@
 ||ulp1p-pa.googleapis.com^
 ||us-c.viayoo.com^
 ||userapps-noneu.truecallerstatic.com^
-||userlocation.googleapis.com^
 ||www.apps2sd.info^

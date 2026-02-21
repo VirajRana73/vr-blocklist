@@ -32,5 +32,4 @@
 0.0.0.0 ulp1p-pa.googleapis.com
 0.0.0.0 us-c.viayoo.com
 0.0.0.0 userapps-noneu.truecallerstatic.com
-0.0.0.0 userlocation.googleapis.com
 0.0.0.0 www.apps2sd.info
