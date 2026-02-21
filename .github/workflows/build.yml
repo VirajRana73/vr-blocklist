@@ -48,18 +48,24 @@ jobs:
 
       # Step 3: Validation
       - name: Validate blocklists
-        run: |
-          # AdBlock validation: all non-comment lines start with || and end with ^
-          if grep -v '^!' adblock.txt | grep -v '^$' | grep -v '^||.*\^$'; then
-            echo "AdBlock validation failed"
-            exit 1
-          fi
-          # Hosts validation: all non-empty lines start with 0.0.0.0
-          if grep -v '^$' hosts.txt | grep -v '^0.0.0.0 '; then
-            echo "Hosts validation failed"
-            exit 1
-          fi
-          echo "Validation passed ✅"
+  run: |
+    # AdBlock validation: all non-comment lines start with || and end with ^
+    INVALID=$(grep -v '^!' adblock.txt | grep -v '^$' | grep -v '^||.*\^$' || true)
+    if [ -n "$INVALID" ]; then
+      echo "AdBlock validation failed! Invalid lines:"
+      echo "$INVALID"
+      exit 1
+    fi
+
+    # Hosts validation: all non-empty lines start with 0.0.0.0
+    INVALID_HOSTS=$(grep -v '^$' hosts.txt | grep -v '^0.0.0.0 ' || true)
+    if [ -n "$INVALID_HOSTS" ]; then
+      echo "Hosts validation failed! Invalid lines:"
+      echo "$INVALID_HOSTS"
+      exit 1
+    fi
+
+    echo "Validation passed ✅"
 
       # Step 4: Generate changelog
       - name: Generate changelog
