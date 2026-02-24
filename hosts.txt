@@ -5,6 +5,7 @@
 0.0.0.0 cdn.statically.io
 0.0.0.0 cloud-telephony-noneu.truecaller.com
 0.0.0.0 contact-lists-noneu.truecaller.com
+0.0.0.0 crashlogs.whatsapp.net
 0.0.0.0 device-safety-noneu.truecaller.com
 0.0.0.0 enterprise-userfeedback-noneu.truecaller.com
 0.0.0.0 feedback-pa.clients6.google.com
@@ -19,11 +20,14 @@
 0.0.0.0 graph.whatsapp.net
 0.0.0.0 history.google.com
 0.0.0.0 insurance-noneu.truecaller.com
+0.0.0.0 js.monitor.azure.com
 0.0.0.0 lamssettings-pa.googleapis.com
 0.0.0.0 locationhistory-pa.googleapis.com
 0.0.0.0 locationhistoryplacedetails-pa.googleapis.com
 0.0.0.0 logs.juspay.in
 0.0.0.0 messenger-noneu.truecaller.com
+0.0.0.0 mobile.events.data.microsoft.com
+0.0.0.0 ogads-pa.clients6.google.com
 0.0.0.0 presence-grpc-noneu.truecaller.com
 0.0.0.0 scone-pa.googleapis.com
 0.0.0.0 spot-pa.googleapis.com
@@ -33,4 +37,5 @@
 0.0.0.0 us-c.viayoo.com
 0.0.0.0 userapps-noneu.truecallerstatic.com
 0.0.0.0 userlocation.googleapis.com
+0.0.0.0 variations.brave.com
 0.0.0.0 www.apps2sd.info
