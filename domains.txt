@@ -34,3 +34,8 @@ history.google.com
 api-secure.rikka.app
 api-secure.rikka.caoyue.com.cn
 userlocation.googleapis.com
+mobile.events.data.microsoft.com
+crashlogs.whatsapp.net
+ogads-pa.clients6.google.com
+variations.brave.com
+js.monitor.azure.com
