@@ -1,13 +1,19 @@
+0.0.0.0 activity.windows.com
 0.0.0.0 android-context-data.googleapis.com
 0.0.0.0 api-secure.rikka.app
 0.0.0.0 api-secure.rikka.caoyue.com.cn
+0.0.0.0 appsgrowthpromo-pa.clients6.google.com
+0.0.0.0 assets.activity.windows.com
 0.0.0.0 auditrecording-pa.googleapis.com
 0.0.0.0 cdn.statically.io
 0.0.0.0 cloud-telephony-noneu.truecaller.com
+0.0.0.0 collections.md.mp.microsoft.com
 0.0.0.0 contact-lists-noneu.truecaller.com
 0.0.0.0 crashlogs.whatsapp.net
 0.0.0.0 device-safety-noneu.truecaller.com
+0.0.0.0 dit.whatsapp.net
 0.0.0.0 enterprise-userfeedback-noneu.truecaller.com
+0.0.0.0 events.api.gamma.app
 0.0.0.0 feedback-pa.clients6.google.com
 0.0.0.0 feedback-pa.googleapis.com
 0.0.0.0 firebaseinstallations.googleapis.com
@@ -28,8 +34,10 @@
 0.0.0.0 messenger-noneu.truecaller.com
 0.0.0.0 mobile.events.data.microsoft.com
 0.0.0.0 ogads-pa.clients6.google.com
+0.0.0.0 platform.linkedin.com
 0.0.0.0 presence-grpc-noneu.truecaller.com
 0.0.0.0 scone-pa.googleapis.com
+0.0.0.0 settings-win.data.microsoft.com
 0.0.0.0 spot-pa.googleapis.com
 0.0.0.0 survey-noneu.truecaller.com
 0.0.0.0 true-community-noneu.truecaller.com
@@ -39,3 +47,4 @@
 0.0.0.0 userlocation.googleapis.com
 0.0.0.0 variations.brave.com
 0.0.0.0 www.apps2sd.info
+0.0.0.0 xgapromomanager-pa.googleapis.com
