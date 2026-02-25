@@ -39,3 +39,12 @@ crashlogs.whatsapp.net
 ogads-pa.clients6.google.com
 variations.brave.com
 js.monitor.azure.com
+dit.whatsapp.net
+settings-win.data.microsoft.com
+events.api.gamma.app
+platform.linkedin.com
+assets.activity.windows.com
+collections.md.mp.microsoft.com
+activity.windows.com
+appsgrowthpromo-pa.clients6.google.com
+xgapromomanager-pa.googleapis.com
