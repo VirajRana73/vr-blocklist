@@ -48,3 +48,10 @@ collections.md.mp.microsoft.com
 activity.windows.com
 appsgrowthpromo-pa.clients6.google.com
 xgapromomanager-pa.googleapis.com
+fundingchoicesmessages.google.com
+digianalytics.airtel.in
+notifications-ueeshp-pa.googleapis.com
+supportmetrics.apple.com
+otelrules.svc.static.microsoft
+logger-prod.aips.in-payments.amazon.dev
+arc.msn.com
