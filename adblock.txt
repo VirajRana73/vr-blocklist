@@ -2,16 +2,17 @@
 ! Title: VR Blocklist
 ! Description: My Personal Blocklist
 ! Homepage: https://github.com/VirajRana73/vr-blocklist
-! Version: 2026.02.25.0412
-! Last modified: 25 Feb 2026
+! Version: 2026.05.24.1831
+! Last modified: 24 May 2026
 ! Syntax: AdBlock
-! Entries: 50
+! Entries: 57
 
 ||activity.windows.com^
 ||android-context-data.googleapis.com^
 ||api-secure.rikka.app^
 ||api-secure.rikka.caoyue.com.cn^
 ||appsgrowthpromo-pa.clients6.google.com^
+||arc.msn.com^
 ||assets.activity.windows.com^
 ||auditrecording-pa.googleapis.com^
 ||cdn.statically.io^
@@ -20,6 +21,7 @@
 ||contact-lists-noneu.truecaller.com^
 ||crashlogs.whatsapp.net^
 ||device-safety-noneu.truecaller.com^
+||digianalytics.airtel.in^
 ||dit.whatsapp.net^
 ||enterprise-userfeedback-noneu.truecaller.com^
 ||events.api.gamma.app^
@@ -29,6 +31,7 @@
 ||firebaselogging.googleapis.com^
 ||firebaseremoteconfig.googleapis.com^
 ||footprints-pa.googleapis.com^
+||fundingchoicesmessages.google.com^
 ||geller-pa.googleapis.com^
 ||graph.facebook.com^
 ||graph.whatsapp.com^
@@ -39,15 +42,19 @@
 ||lamssettings-pa.googleapis.com^
 ||locationhistory-pa.googleapis.com^
 ||locationhistoryplacedetails-pa.googleapis.com^
+||logger-prod.aips.in-payments.amazon.dev^
 ||logs.juspay.in^
 ||messenger-noneu.truecaller.com^
 ||mobile.events.data.microsoft.com^
+||notifications-ueeshp-pa.googleapis.com^
 ||ogads-pa.clients6.google.com^
+||otelrules.svc.static.microsoft^
 ||platform.linkedin.com^
 ||presence-grpc-noneu.truecaller.com^
 ||scone-pa.googleapis.com^
 ||settings-win.data.microsoft.com^
 ||spot-pa.googleapis.com^
+||supportmetrics.apple.com^
 ||survey-noneu.truecaller.com^
 ||true-community-noneu.truecaller.com^
 ||ulp1p-pa.googleapis.com^
